@@ -1,5 +1,7 @@
-﻿@section SPAViews {
-    @Html.Partial("_Home")
+﻿@model IEnumerable<WebApplication1.Models.Manufacturer>
+
+@section SPAViews {
+    @Html.Partial("_Home", Model)
 }
 @section Scripts{
     @Scripts.Render("~/bundles/knockout")

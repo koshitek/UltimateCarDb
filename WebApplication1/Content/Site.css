@@ -34,3 +34,10 @@ textarea {
         padding: 10px 15px;
     }
 }
+
+#col {
+    -moz-column-count: 8;
+    -webkit-column-count: 8;
+    column-count: 8;
+}
+

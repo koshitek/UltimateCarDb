@@ -10,10 +10,7 @@ namespace WebApplication1.DatabaseContext
             Database.SetInitializer(new DropCreateDatabaseAlways<VehicleDBContext>());
         }
 
-        public DbSet<Vehicle> Vehicles
-        {
-            get;
-            set;
-        }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
     }
 }
