@@ -7,7 +7,7 @@ namespace WebApplication1.DatabaseContext
     {
         public VehicleDBContext() : base("VehicleDB")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<VehicleDBContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VehicleDBContext>());
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }

@@ -1,0 +1,19 @@
+﻿@model List<WebApplication1.Models.LigthBulb>
+
+@{
+    ViewBag.Title = "Trims";
+}
+<p>@ViewBag.manufacturer</p>
+<p>@ViewBag.year</p>
+<p>@ViewBag.modelName</p>
+<p>@ViewBag.trimName</p>
+
+<div id="col">
+    @foreach (var item in Model)
+    {
+        <p>
+            <a href="@item.AmazonLink">@item.Name</a>
+            
+        </p>
+    }
+</div>

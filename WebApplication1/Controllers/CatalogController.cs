@@ -8,39 +8,20 @@ using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class CatalogController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Manufacturers()
+        public ActionResult Years(int manufacturerId)
         {
             using (var db = new VehicleDBContext())
             {
-                var manufacturers = db.Manufacturers.Select(o => o.Name);
-                return View(manufacturers.ToList());
-            }
-        }
-
-
-        public ActionResult Years(string manufacturer)
-        {
-            using (var db = new VehicleDBContext())
-            {
-                ViewBag.manufacturer = manufacturer;
-                var ManufacturerId = db.Manufacturers.Where(o => o.Name == manufacturer).First().ManufacturerId;
-                var allyears = db.Vehicles.Where(o => o.Manufacturer.ManufacturerId == ManufacturerId);
+                ViewBag.ManufacturerName = db.Manufacturers.FirstOrDefault(o => o.ManufacturerId == manufacturerId).Name;
+                var allyears = db.Vehicles.Where(o => o.Manufacturer.ManufacturerId == manufacturerId);
                 return View(allyears.Select(o => o.Year).ToList());
             }
         }
 
-        public ActionResult Models(int year, string manufacturer)
+        public ActionResult Models(int year, string model)
         {
-            ViewBag.manufacturer = manufacturer;
-            ViewBag.year = year;
-
             var modelsFake = new List<string> {
                 "Explorer",
                 "Taurus",
@@ -52,48 +33,13 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult Trims (int year, string modelName, string manufacturer)
-        {
-            ViewBag.manufacturer = manufacturer;
-            ViewBag.year = year;
-            ViewBag.modelName = modelName;
-
-            var trimsFake = new List<string> {
-                "Eddie Bauer",
-                "XLT",
-                "SportTrac"
-            };
-            using (var db = new VehicleDBContext())
-            {
-                return View(trimsFake);
-            }
-        }
-
-
-        public ActionResult Lightbulbs(int year, string modelName, string trimName, string manufacturer)
-        {
-            ViewBag.manufacturer = manufacturer;
-            ViewBag.year = year;
-            ViewBag.modelName = modelName;
-            ViewBag.trimName = trimName;
-
-            var LightbulbsFake = new List<LigthBulb> {
-                new LigthBulb { Name = "lithbuls1", AmazonLink = "hello1" },
-                new LigthBulb { Name = "lithbuls2", AmazonLink = "hello2" },
-                new LigthBulb { Name = "lithbuls3", AmazonLink = "hello3" }
-            };
-            using (var db = new VehicleDBContext())
-            {
-                return View(LightbulbsFake);
-            }
-        }
-
-
-
         public ActionResult SeedManufacturers()
         {
             using (var db = new VehicleDBContext())
             {
+                //db.Manufacturers.Add(new Manufacturer { Name = "Volkswagen" });
+                db.Manufacturers.Add(new Manufacturer { Name = "Ford" });
+                //db.Manufacturers.Add(new Manufacturer { Name = "Nissan" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "ABARTH" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "AC" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "ACURA" });
@@ -174,7 +120,7 @@ namespace WebApplication1.Controllers
                 //db.Manufacturers.Add(new Manufacturer { Name = "FIAT" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "FISKER" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "FLINT" });
-                db.Manufacturers.Add(new Manufacturer { Name = "FORD" });
+                //db.Manufacturers.Add(new Manufacturer { Name = "FORD" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "FRANKLIN" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "FRAZER NASH" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "FREIGHTLINER" });
@@ -255,7 +201,7 @@ namespace WebApplication1.Controllers
                 //db.Manufacturers.Add(new Manufacturer { Name = "MOSKVICH" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NARDI" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NASH" });
-                db.Manufacturers.Add(new Manufacturer { Name = "NISSAN" });
+                //db.Manufacturers.Add(new Manufacturer { Name = "NISSAN" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NSU" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "OAKLAND" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "OLDSMOBILE" });

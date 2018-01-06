@@ -8,7 +8,9 @@ namespace WebApplication1.Models
     public class Vehicle
     {
         public int VehicleId { get; set; }
+        public int Year { get; set; }
         public String Model { get; set; }
-        public String ManufacturerId { get; set; }
+        public Manufacturer Manufacturer { get; set; }
+        public List<LigthBulb> LightBulbs { get; set; }
     }
 }
