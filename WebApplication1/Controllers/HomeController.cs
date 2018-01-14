@@ -7,7 +7,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -23,7 +23,6 @@ namespace WebApplication1.Controllers
                 return View(manufacturers.ToList());
             }
         }
-
 
         public ActionResult Years(string manufacturer)
         {
@@ -69,7 +68,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-
         public ActionResult Lightbulbs(int year, string modelName, string trimName, string manufacturer)
         {
             ViewBag.manufacturer = manufacturer;
@@ -78,9 +76,30 @@ namespace WebApplication1.Controllers
             ViewBag.trimName = trimName;
 
             var LightbulbsFake = new List<LigthBulb> {
-                new LigthBulb { Name = "lithbuls1", AmazonLink = "hello1" },
-                new LigthBulb { Name = "lithbuls2", AmazonLink = "hello2" },
-                new LigthBulb { Name = "lithbuls3", AmazonLink = "hello3" }
+                new LigthBulb {
+                    Name = "H7",
+                    Position = "Headlight High Beam",
+                    Voltage = 12,
+                    BulbType = "Halogen",
+                    Wattage = 55,
+                    OEMPartNumber = "123=2234=33",
+                    AmazonLink = "http://amzn.to/2FqYFfv",  },
+                new LigthBulb {
+                    Name = "578",
+                    Position = "Glove Compartment",
+                    Voltage = 12,
+                    BulbType = "Halogen",
+                    Wattage = 5,
+                    OEMPartNumber = "123=2234=33",
+                    AmazonLink = "http://amzn.to/2FqYFfv",  },
+                new LigthBulb {
+                    Name = "168",
+                    Position = "License Plate",
+                    Voltage = 12,
+                    BulbType = "Halogen",
+                    Wattage = 5,
+                    OEMPartNumber = "123=2234=33",
+                    AmazonLink = "http://amzn.to/2FqYFfv",  },
             };
             using (var db = new VehicleDBContext())
             {
@@ -89,7 +108,7 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult SeedManufacturers()
         {
             using (var db = new VehicleDBContext())
@@ -342,15 +361,30 @@ namespace WebApplication1.Controllers
                         Model = "Explorer",
                         Year = 2003,
                         LightBulbs = new List<LigthBulb> {
-                            new LigthBulb { Position = "Headlights",
-                                            Name = "H7",
-                                            AmazonLink = "http://amzn.to/1VtqTuY"},
-                            new LigthBulb { Position = "Glove Compartment",
-                                            Name = "158",
-                                            AmazonLink = "http://amzn.to/2ahy1Zy"},
-                            new LigthBulb { Position = "Taillight",
-                                            Name = "921",
-                                            AmazonLink = "http://amzn.to/293ihsn"}
+                                          new LigthBulb {
+                                Name = "H7",
+                                Position = "Headlight High Beam",
+                                Voltage = 12,
+                                BulbType = "Halogen",
+                                Wattage = 55,
+                                OEMPartNumber = "123=2234=33",
+                                AmazonLink = "http://amzn.to/2FqYFfv",  },
+                            new LigthBulb {
+                                Name = "578",
+                                Position = "Glove Compartment",
+                                Voltage = 12,
+                                BulbType = "Halogen",
+                                Wattage = 5,
+                                OEMPartNumber = "123=2234=33",
+                                AmazonLink = "http://amzn.to/2FqYFfv",  },
+                            new LigthBulb {
+                                Name = "168",
+                                Position = "License Plate",
+                                Voltage = 12,
+                                BulbType = "Halogen",
+                                Wattage = 5,
+                                OEMPartNumber = "123=2234=33",
+                                AmazonLink = "http://amzn.to/2FqYFfv",  },
                         }
                     }
                 );
