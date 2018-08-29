@@ -11,5 +11,6 @@ namespace WebApplication1.Models
         public String Model { get; set; }
         public int ManufacturerId { get; set; }
         public int ProductionYear { get; set; }
+        public string Trim { get; internal set; }
     }
 }

@@ -17,14 +17,49 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
 
-            SeedData();
-            //Year
-            //Make
-            //Model
-            //Trim
+            SeedProductionYearData();
+            SeedManufacturerData();
+            SeedVehicleData();
         }
-
-        void SeedData()
+        void SeedProductionYearData()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.ProductionYears.Count() > 0)
+                    return;
+                db.ProductionYears.Add(new ProductionYear { Name = "1990" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1991" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1992" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1993" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1994" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1995" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1996" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1997" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1998" });
+                db.ProductionYears.Add(new ProductionYear { Name = "1999" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2000" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2001" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2002" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2003" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2004" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2005" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2006" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2007" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2008" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2009" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2010" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2011" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2012" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2013" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2014" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2015" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2016" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2017" });
+                db.ProductionYears.Add(new ProductionYear { Name = "2018" });
+                db.SaveChanges();
+            }
+        }
+        void SeedManufacturerData()
         {
             using (var db = new VehicleDBContext())
             {
@@ -272,39 +307,38 @@ namespace WebApplication1
                 //db.Manufacturers.Add(new Manufacturer { Name = "YUGO" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "ZUNDAPP" });
 
-                db.ProductionYears.Add(new ProductionYear { Name = "1990" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1991" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1992" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1993" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1994" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1995" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1996" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1997" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1998" });
-                db.ProductionYears.Add(new ProductionYear { Name = "1999" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2000" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2001" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2002" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2003" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2004" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2005" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2006" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2007" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2008" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2009" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2010" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2011" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2012" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2013" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2014" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2015" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2016" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2017" });
-                db.ProductionYears.Add(new ProductionYear { Name = "2018" });
-
                 db.SaveChanges();
             }
         }
-
+        void SeedVehicleData()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.Vehicles.Count() > 0)
+                    return;
+                db.Vehicles.Add(new Vehicle
+                {
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Ford").ManufacturerId,
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003").ProductionYearId,
+                    Model = "Explorer",
+                    Trim = "Eddie Bauer 4.0 V6"
+                });
+                db.Vehicles.Add(new Vehicle
+                {
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Acura").ManufacturerId,
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "1999").ProductionYearId,
+                    Model = "TL",
+                    Trim = "3.2 V6"
+                });
+                db.Vehicles.Add(new Vehicle
+                {
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Volkswagen").ManufacturerId,
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003").ProductionYearId,
+                    Model = "GTI",
+                    Trim = "1.8T"
+                });
+                db.SaveChanges();
+            }
+        }
     }
 }
