@@ -227,8 +227,7 @@ namespace WebApplication1
                 //db.Manufacturers.Add(new Manufacturer { Name = "MOSKVICH" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NARDI" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NASH" });
-                //db.Manufacturers.Add(new Manufacturer { Name = "Nissan" });
-                //db.Manufacturers.Add(new Manufacturer { Name = "NISSAN" });
+                db.Manufacturers.Add(new Manufacturer { Name = "NISSAN" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "NSU" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "OAKLAND" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "OLDSMOBILE" });
@@ -306,7 +305,6 @@ namespace WebApplication1
                 //db.Manufacturers.Add(new Manufacturer { Name = "YELLOW CAB" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "YUGO" });
                 //db.Manufacturers.Add(new Manufacturer { Name = "ZUNDAPP" });
-
                 db.SaveChanges();
             }
         }
@@ -321,7 +319,34 @@ namespace WebApplication1
                     ManufacturerId = db.Manufacturers.First(x => x.Name == "Ford").ManufacturerId,
                     ProductionYear = db.ProductionYears.First(x => x.Name == "2003").ProductionYearId,
                     Model = "Explorer",
-                    Trim = "Eddie Bauer 4.0 V6"
+                    Trim = "Eddie Bauer 4.0 V6",
+
+                    LightBulbs = new List<LigthBulb> {
+                        new LigthBulb {
+                            Name = "H7",
+                            Position = "Headlight High Beam",
+                            Voltage = 12,
+                            BulbType = "Halogen",
+                            Wattage = 55,
+                            OEMPartNumber = "123=2234=33",
+                            AmazonLink = "http://amzn.to/2FqYFfv",  },
+                        new LigthBulb {
+                            Name = "578",
+                            Position = "Glove Compartment",
+                            Voltage = 12,
+                            BulbType = "Halogen",
+                            Wattage = 5,
+                            OEMPartNumber = "123=2234=33",
+                            AmazonLink = "http://amzn.to/2FqYFfv",  },
+                        new LigthBulb {
+                            Name = "168",
+                            Position = "License Plate",
+                            Voltage = 12,
+                            BulbType = "Halogen",
+                            Wattage = 5,
+                            OEMPartNumber = "123=2234=33",
+                            AmazonLink = "http://amzn.to/2FqYFfv",  },
+                    }
                 });
                 db.Vehicles.Add(new Vehicle
                 {
