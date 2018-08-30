@@ -11,8 +11,19 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         // api/years
+        // api/years?manufacturer=id
         // api/manufacturer
+        // api/manufacturer?year=id
         // api/vehicle/id
+        //https://simpletire.com/catalog?year=2015&make=Toyota&model=Highlander&option=Limited&zip=98230&sort=bestseller&query=catalog
+        //catalog
+        //    ?year=2015
+        //    &make=Toyota
+        //    &model=Highlander
+        //    &option=Limited
+        //    &zip=98230
+        //    &sort=bestseller
+        //    &query=catalog
 
         public ActionResult Index()
         {
@@ -27,22 +38,24 @@ namespace WebApplication1.Controllers
                 return View(manufacturers.ToList());
             }
         }
-
         public ActionResult Years(string manufacturer)
         {
             using (var db = new VehicleDBContext())
             {
-                ViewBag.manufacturer = manufacturer;
-                var ManufacturerId = db.Manufacturers.Where(o => o.Name == manufacturer).First().ManufacturerId;
-                var allYearsIds = db.Vehicles.Where(o => o.ManufacturerId == ManufacturerId).Select(s=> s.ProductionYear).ToList();
-                var ProductYearNames = db.ProductionYears.Where(s => allYearsIds.Contains(s.ProductionYearId)).Select(s => s.Name).ToList();
-                return View(ProductYearNames);
-            }
-            using (var db = new VehicleDBContext())
-            {
-                var vehiclesYears = db.Vehicles.Select(s => s.ProductionYear).Distinct().ToList();
-                var distinctYears = db.ProductionYears.Where(s => vehiclesYears.Contains(s.ProductionYearId));
-                return View(distinctYears.ToList());
+                if (manufacturer != null)
+                {
+                    ViewBag.manufacturer = manufacturer;
+                    var ManufacturerId = db.Manufacturers.Where(o => o.Name == manufacturer).First().ManufacturerId;
+                    var allYearsIds = db.Vehicles.Where(o => o.ManufacturerId == ManufacturerId).Select(s => s.ProductionYear).ToList();
+                    var ProductYearNames = db.ProductionYears.Where(s => allYearsIds.Contains(s.ProductionYearId)).Select(s => s.Name).ToList();
+                    return View(ProductYearNames);
+                }
+                else
+                {
+                    var vehiclesYears = db.Vehicles.Select(s => s.ProductionYear).Distinct().ToList();
+                    var distinctYearsName = db.ProductionYears.Where(s => vehiclesYears.Contains(s.ProductionYearId)).Select(s => s.Name).ToList();
+                    return View(distinctYearsName);
+                }
             }
         }
 
