@@ -10,7 +10,8 @@ namespace WebApplication1.Models
         public int VehicleId { get; set; }
         public int Year { get; set; }
         public String Model { get; set; }
-        public Manufacturer Manufacturer { get; set; }
-        public List<LigthBulb> LightBulbs { get; set; }
+        public int ManufacturerId { get; set; }
+        public int ProductionYear { get; set; }
+        public string Trim { get; internal set; }
     }
 }

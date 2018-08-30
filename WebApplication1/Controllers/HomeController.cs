@@ -10,6 +10,10 @@ namespace WebApplication1.Controllers
     
     public class HomeController : Controller
     {
+        // api/years
+        // api/manufacturer
+        // api/vehicle/id
+
         public ActionResult Index()
         {
             return View();
@@ -111,6 +115,7 @@ namespace WebApplication1.Controllers
         [Authorize]
         public ActionResult SeedManufacturers()
         {
+            // get all years that have vehicles in it.
             using (var db = new VehicleDBContext())
             {
                 //db.Manufacturers.Add(new Manufacturer { Name = "ABARTH" });
@@ -390,7 +395,6 @@ namespace WebApplication1.Controllers
                 );
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

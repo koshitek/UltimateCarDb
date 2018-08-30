@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -247,6 +248,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="DbContext\Manufacturer.cs" />
     <Compile Include="DbContext\Vehicle.cs" />
+    <Compile Include="Models\ProductionYear.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeViewModels.cs" />
