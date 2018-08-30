@@ -34,8 +34,15 @@ namespace WebApplication1.Controllers
             {
                 ViewBag.manufacturer = manufacturer;
                 var ManufacturerId = db.Manufacturers.Where(o => o.Name == manufacturer).First().ManufacturerId;
-                var allyears = db.Vehicles.Where(o => o.ManufacturerId == ManufacturerId);
-                return View(allyears.Select(o => o.ProductionYear).ToList());
+                var allYearsIds = db.Vehicles.Where(o => o.ManufacturerId == ManufacturerId).Select(s=> s.ProductionYear).ToList();
+                var ProductYearNames = db.ProductionYears.Where(s => allYearsIds.Contains(s.ProductionYearId)).Select(s => s.Name).ToList();
+                return View(ProductYearNames);
+            }
+            using (var db = new VehicleDBContext())
+            {
+                var vehiclesYears = db.Vehicles.Select(s => s.ProductionYear).Distinct().ToList();
+                var distinctYears = db.ProductionYears.Where(s => vehiclesYears.Contains(s.ProductionYearId));
+                return View(distinctYears.ToList());
             }
         }
 
