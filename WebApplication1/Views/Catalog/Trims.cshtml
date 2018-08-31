@@ -1,0 +1,15 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Trims";
+}
+<p>@ViewBag.year > @ViewBag.manufacturer > @ViewBag.model > @ViewBag.Title</p>
+
+<div id="col">
+    @foreach (var item in Model)
+    {
+        <p>
+            @Html.ActionLink(item.ToString(), "LightBulbs", "Catalog", new { trim = item, model = ViewBag.model, year = ViewBag.year, manufacturer = ViewBag.manufacturer }, null)
+        </p>
+    }
+</div>

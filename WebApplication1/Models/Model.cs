@@ -2,9 +2,9 @@
 
 namespace WebApplication1.Models
 {
-    public class ProductionYear
+    public class Model
     {
-        public int ProductionYearId { get; set; }
+        public int ModelId { get; set; }
         public String Name { get; set; }
     }
 }

@@ -3,14 +3,13 @@
 @{
     ViewBag.Title = "Manufacturers";
 }
-
-<p>@ViewBag.Title</p>
+<p>@ViewBag.year > @ViewBag.Title</p>
 
 <div id="col">
     @foreach (var item in Model)
     {
         <p>
-            @Html.ActionLink(item, "Years", "Home", new { manufacturer = item }, null)
+            @Html.ActionLink(item, "Models", "Catalog", new { manufacturer = item, year = ViewBag.year }, null)
         </p>
     }
 </div>

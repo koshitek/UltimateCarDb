@@ -17,11 +17,13 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
 
-            SeedProductionYearData();
-            SeedManufacturerData();
-            SeedVehicleData();
+            SeedProductionYears();
+            SeedManufacturers();
+            SeedModels();
+            SeedTrims();
+            SeedVehicles();
         }
-        void SeedProductionYearData()
+        void SeedProductionYears()
         {
             using (var db = new VehicleDBContext())
             {
@@ -59,7 +61,7 @@ namespace WebApplication1
                 db.SaveChanges();
             }
         }
-        void SeedManufacturerData()
+        void SeedManufacturers()
         {
             using (var db = new VehicleDBContext())
             {
@@ -308,7 +310,36 @@ namespace WebApplication1
                 db.SaveChanges();
             }
         }
-        void SeedVehicleData()
+        private void SeedModels()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.Models.Count() > 0)
+                    return;
+                db.Models.Add(new Model { Name = "Explorer" });
+                db.Models.Add(new Model { Name = "Taurus" });
+                db.Models.Add(new Model { Name = "Focus" });
+                db.Models.Add(new Model { Name = "TL" });
+                db.Models.Add(new Model { Name = "GTI" });
+                db.SaveChanges();
+            }
+        }
+        private void SeedTrims()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.Trims.Count() > 0)
+                    return;
+                db.Trims.Add(new Trim { Name = "Eddie Bauer" });
+                db.Trims.Add(new Trim { Name = "XLT" });
+                db.Trims.Add(new Trim { Name = "SportTrac" });
+                db.Trims.Add(new Trim { Name = "Limited" });
+                db.Trims.Add(new Trim { Name = "1.8T" });
+                db.Trims.Add(new Trim { Name = "3.2 V6" });
+                db.SaveChanges();
+            }
+        }
+        void SeedVehicles()
         {
             using (var db = new VehicleDBContext())
             {
@@ -316,11 +347,10 @@ namespace WebApplication1
                     return;
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Ford").ManufacturerId,
-                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003").ProductionYearId,
-                    Model = "Explorer",
-                    Trim = "Eddie Bauer 4.0 V6",
-
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Ford"),
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003"),
+                    Model = db.Models.First(x => x.Name == "Explorer"),
+                    Trim = db.Trims.First(x => x.Name == "Eddie Bauer"),
                     LightBulbs = new List<LigthBulb> {
                         new LigthBulb {
                             Name = "H7",
@@ -350,17 +380,17 @@ namespace WebApplication1
                 });
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Acura").ManufacturerId,
-                    ProductionYear = db.ProductionYears.First(x => x.Name == "1999").ProductionYearId,
-                    Model = "TL",
-                    Trim = "3.2 V6"
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Acura"),
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "1999"),
+                    Model = db.Models.First(x => x.Name == "TL"),
+                    Trim = db.Trims.First(x => x.Name == "3.2 V6"),
                 });
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Volkswagen").ManufacturerId,
-                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003").ProductionYearId,
-                    Model = "GTI",
-                    Trim = "1.8T"
+                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Volkswagen"),
+                    ProductionYear = db.ProductionYears.First(x => x.Name == "2003"),
+                    Model = db.Models.First(x => x.Name == "GTI"),
+                    Trim = db.Trims.First(x => x.Name == "1.8T"),
                 });
                 db.SaveChanges();
             }
