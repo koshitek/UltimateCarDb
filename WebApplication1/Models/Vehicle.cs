@@ -12,6 +12,6 @@ namespace WebApplication1.Models
         public Manufacturer ManufacturerId { get; set; }
         public Model Model { get; set; }
         public Trim Trim { get; set; }
-        public List<LigthBulb> LightBulbs { get; set; }
+        public List<LigthBulbCarSpecific> LigthBulbCarSpecific { get; set; }
     }
 }

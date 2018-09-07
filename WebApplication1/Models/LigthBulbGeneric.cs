@@ -17,18 +17,17 @@
 
 namespace WebApplication1.Models
 {
-    public class LigthBulb
+    public class LightbulbGeneric
     {
         public int LigthBulbId { get; set; }
         public string Name { get; set; }
-
-        public string Position { get; set; }
-        public string BulbType { get; set; } //LED
+        public string Size { get; set; }
+        public string FilamentType { get; set; } //LED
         public int Voltage { get; set; } //"12";
         public int Wattage { get; set; } //	3 watts
-
-        public string OEMPartNumber { get; set; }
-
         public string AmazonLink { get; set; }
+        public string EbayLink { get; set; }
+        public string AliExpressLink { get; set; }
+        public string WalmartLink { get; set; }
     }
 }

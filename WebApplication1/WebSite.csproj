@@ -240,7 +240,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
-    <Compile Include="Models\LigthBulb.cs" />
+    <Compile Include="Models\LigthBulbGeneric.cs" />
+    <Compile Include="Models\LigthBulbPosition.cs" />
+    <Compile Include="Models\LigthBulbCarSpecific.cs" />
     <Compile Include="DbContext\VehicleDBContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

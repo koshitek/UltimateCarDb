@@ -339,6 +339,50 @@ namespace WebApplication1
                 db.SaveChanges();
             }
         }
+        private void SeedLigthBulbPosition()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.LigthBulbPosition.Count() > 0)
+                    return;
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Low Beam Headlight" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "High Beam Headlamp Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Parking Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Front Turn Signal Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Rear Turn Signal Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Tail Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Stop Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "High Mount Stop Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Fog / Driving Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "License Plate Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Back Up Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Map Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Dome Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Step / Courtesy Light" });
+                db.LigthBulbPosition.Add(new LigthBulbPosition { Name = "Trunk / Cargo Area Light" });
+                db.SaveChanges();
+            }
+        }
+        private void SeedLigthBulbGeneric()
+        {
+            using (var db = new VehicleDBContext())
+            {
+                if (db.LightbulbGeneric.Count() > 0)
+                    return;
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "168", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "578", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "2825", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3156", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157LL", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157NALL", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "HID" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "HID" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9145", FilamentType = "LED" });
+                db.SaveChanges();
+            }
+        }
         void SeedVehicles()
         {
             using (var db = new VehicleDBContext())
@@ -351,11 +395,10 @@ namespace WebApplication1
                     ProductionYear = db.ProductionYears.First(x => x.Name == "2003"),
                     Model = db.Models.First(x => x.Name == "Explorer"),
                     Trim = db.Trims.First(x => x.Name == "Eddie Bauer"),
-                    LightBulbs = new List<LigthBulb> {
-                        new LigthBulb {
-                            Name = "H7",
-                            Position = "Headlight High Beam",
-                            Voltage = 12,
+                    LigthBulbCarSpecific = new List<LigthBulbCarSpecific> {
+                        new LigthBulbCarSpecific {
+                            LigthBulbCarSpecificId =db.LigthBulbPosition.First(x => x.Name.Contains("Headlight High Beam")).LigthBulbPositionId,
+                            LigthBulbLocationId
                             BulbType = "Halogen",
                             Wattage = 55,
                             OEMPartNumber = "123=2234=33",
