@@ -24,7 +24,7 @@ namespace WebApplication1.Models
         public int LigthBulbCarSpecificId { get; set; }
         public LigthBulbPosition ligthBulbPositionId { get; set; }
         public string oemPartNumber { get; set; }
-        public List<LightbulbGeneric> oemReplacements;
-        public List<LightbulbGeneric> upgradeReplacements;
+        public List<int> oemReplacementIds;
+        public List<int> upgradeReplacementIds;
     }
 }
