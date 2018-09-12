@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -43,7 +44,7 @@ namespace WebApplication1.Controllers
             {
                 var manufacturerName = db.Vehicles
                     .Where(s=>s.ProductionYear.Name == year)
-                    .Select(d=>d.ManufacturerId)
+                    .Select(d=>d.Manufacturer)
                     .Select(s => s.Name)
                     .ToList();
                 return View(manufacturerName);
@@ -57,7 +58,7 @@ namespace WebApplication1.Controllers
             {
                 var vehiclesModels = db.Vehicles
                     .Where(s => s.ProductionYear.Name == year)
-                    .Where(s => s.ManufacturerId.Name == manufacturer)
+                    .Where(s => s.Manufacturer.Name == manufacturer)
                     .Select(s => s.Model.Name)
                     .Distinct()
                     .ToList();
@@ -73,7 +74,7 @@ namespace WebApplication1.Controllers
             {
                 var allTrims = db.Vehicles
                      .Where(s => s.ProductionYear.Name == year)
-                     .Where(s => s.ManufacturerId.Name == manufacturer)
+                     .Where(s => s.Manufacturer.Name == manufacturer)
                      .Where(s => s.Model.Name == model)
                      .Select(s => s.Trim.Name)
                      .Distinct()
@@ -81,42 +82,24 @@ namespace WebApplication1.Controllers
                 return View(allTrims);
             }
         }
-        public ActionResult Lightbulbs(int year, string model, string trim, string manufacturer)
+        public ActionResult Lightbulbs(string year, string model, string trim, string manufacturer)
         {
             ViewBag.year = year;
             ViewBag.manufacturer = manufacturer;
             ViewBag.model = model;
             ViewBag.trim= trim;
 
-            var LightbulbsFake = new List<LigthBulb> {
-                new LigthBulb {
-                    Name = "H7",
-                    Position = "Headlight High Beam",
-                    Voltage = 12,
-                    BulbType = "Halogen",
-                    Wattage = 55,
-                    OEMPartNumber = "123=2234=33",
-                    AmazonLink = "http://amzn.to/2FqYFfv",  },
-                new LigthBulb {
-                    Name = "578",
-                    Position = "Glove Compartment",
-                    Voltage = 12,
-                    BulbType = "Halogen",
-                    Wattage = 5,
-                    OEMPartNumber = "123=2234=33",
-                    AmazonLink = "http://amzn.to/2FqYFfv",  },
-                new LigthBulb {
-                    Name = "168",
-                    Position = "License Plate",
-                    Voltage = 12,
-                    BulbType = "Halogen",
-                    Wattage = 5,
-                    OEMPartNumber = "123=2234=33",
-                    AmazonLink = "http://amzn.to/2FqYFfv",  },
-            };
             using (var db = new VehicleDBContext())
             {
-                return View(LightbulbsFake);
+                var allLightbulbs = db.Vehicles
+                     .Where(s => s.ProductionYear.Name == year)
+                     .Where(s => s.Manufacturer.Name == manufacturer)
+                     .Where(s => s.Model.Name == model)
+                     .Where(s => s.Trim.Name == trim)
+                     .First().LigthBulbCarSpecific;
+                string output = JsonConvert.SerializeObject(allLightbulbs);
+                
+                return View();
             }
         }
                 

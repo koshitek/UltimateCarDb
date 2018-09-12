@@ -15,11 +15,13 @@
 //Trunk/Cargo Area Light Bulb Size: 578
 
 
+using System.Collections.Generic;
+
 namespace WebApplication1.Models
 {
     public class LightbulbGeneric
     {
-        public int LigthBulbId { get; set; }
+        public int LightbulbGenericId { get; set; }
         public string Name { get; set; }
         public string Size { get; set; }
         public string FilamentType { get; set; } //LED
@@ -29,5 +31,7 @@ namespace WebApplication1.Models
         public string EbayLink { get; set; }
         public string AliExpressLink { get; set; }
         public string WalmartLink { get; set; }
+
+        public virtual ICollection<LigthBulbCarSpecific> LigthBulbCarSpecifics { get; set; }
     }
 }

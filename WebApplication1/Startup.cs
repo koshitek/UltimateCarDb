@@ -17,6 +17,8 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
 
+            SeedLigthBulbGeneric();
+            SeedLigthBulbPosition();
             SeedProductionYears();
             SeedManufacturers();
             SeedModels();
@@ -369,17 +371,19 @@ namespace WebApplication1
             {
                 if (db.LightbulbGeneric.Count() > 0)
                     return;
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "168", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "578", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "2825", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3156", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157LL", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157NALL", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "HID" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "LED" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "HID" });
-                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9145", FilamentType = "LED" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "168", FilamentType = "LED", AmazonLink = ""});
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "578", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "2825", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3156", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157LL", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "3157NALL", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "HALOGEN", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9006", FilamentType = "HID", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "HALOGEN", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "LED", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9005", FilamentType = "HID", AmazonLink = "" });
+                db.LightbulbGeneric.Add(new LightbulbGeneric { Size = "9145", FilamentType = "LED", AmazonLink = "" });
                 db.SaveChanges();
             }
         }
@@ -391,46 +395,52 @@ namespace WebApplication1
                     return;
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Ford"),
+                    Manufacturer = db.Manufacturers.First(x => x.Name == "Ford"),
                     ProductionYear = db.ProductionYears.First(x => x.Name == "2003"),
                     Model = db.Models.First(x => x.Name == "Explorer"),
                     Trim = db.Trims.First(x => x.Name == "Eddie Bauer"),
                     LigthBulbCarSpecific = new List<LigthBulbCarSpecific> {
-                        new LigthBulbCarSpecific {
-                            LigthBulbCarSpecificId =db.LigthBulbPosition.First(x => x.Name.Contains("Headlight High Beam")).LigthBulbPositionId,
-                            LigthBulbLocationId
-                            BulbType = "Halogen",
-                            Wattage = 55,
-                            OEMPartNumber = "123=2234=33",
-                            AmazonLink = "http://amzn.to/2FqYFfv",  },
-                        new LigthBulb {
-                            Name = "578",
-                            Position = "Glove Compartment",
-                            Voltage = 12,
-                            BulbType = "Halogen",
-                            Wattage = 5,
-                            OEMPartNumber = "123=2234=33",
-                            AmazonLink = "http://amzn.to/2FqYFfv",  },
-                        new LigthBulb {
-                            Name = "168",
-                            Position = "License Plate",
-                            Voltage = 12,
-                            BulbType = "Halogen",
-                            Wattage = 5,
-                            OEMPartNumber = "123=2234=33",
-                            AmazonLink = "http://amzn.to/2FqYFfv",  },
+                        //new LigthBulbCarSpecific {
+                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("Low Beam Headlight")),
+                        //    oemPartNumber = "123=2234=33",
+                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
+                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "LED"),
+                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HID"),
+                        //    },
+                        //    oemReplacementIds = new List<LightbulbGeneric> {
+                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HALOGEN"),
+                        //    }
+                        //},
+                        //new LigthBulbCarSpecific {
+                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("High Beam Headlight")),
+                        //    oemPartNumber = "123=2234=33",
+                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
+                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "LED"),
+                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HID"),
+                        //    },
+                        //    oemReplacementIds = new List<LightbulbGeneric> {
+                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HALOGEN"),
+                        //    }
+                        //},
+                        //new LigthBulbCarSpecific {
+                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("License Plate Light")),
+                        //    oemPartNumber = "123=2234=33",
+                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
+                        //        db.LightbulbGeneric.First(x => x.Size == "168" && x.FilamentType == "LED"),
+                        //    },
+                        //}
                     }
                 });
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Acura"),
+                    Manufacturer = db.Manufacturers.First(x => x.Name == "Acura"),
                     ProductionYear = db.ProductionYears.First(x => x.Name == "1999"),
                     Model = db.Models.First(x => x.Name == "TL"),
                     Trim = db.Trims.First(x => x.Name == "3.2 V6"),
                 });
                 db.Vehicles.Add(new Vehicle
                 {
-                    ManufacturerId = db.Manufacturers.First(x => x.Name == "Volkswagen"),
+                    Manufacturer = db.Manufacturers.First(x => x.Name == "Volkswagen"),
                     ProductionYear = db.ProductionYears.First(x => x.Name == "2003"),
                     Model = db.Models.First(x => x.Name == "GTI"),
                     Trim = db.Trims.First(x => x.Name == "1.8T"),
