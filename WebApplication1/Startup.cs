@@ -17,8 +17,8 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
 
-            SeedLigthBulbGeneric();
             SeedLigthBulbPosition();
+            SeedLigthBulbGeneric();
             SeedProductionYears();
             SeedManufacturers();
             SeedModels();
@@ -393,6 +393,7 @@ namespace WebApplication1
             {
                 if (db.Vehicles.Count() > 0)
                     return;
+
                 db.Vehicles.Add(new Vehicle
                 {
                     Manufacturer = db.Manufacturers.First(x => x.Name == "Ford"),
@@ -400,35 +401,31 @@ namespace WebApplication1
                     Model = db.Models.First(x => x.Name == "Explorer"),
                     Trim = db.Trims.First(x => x.Name == "Eddie Bauer"),
                     LigthBulbCarSpecific = new List<LigthBulbCarSpecific> {
-                        //new LigthBulbCarSpecific {
-                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("Low Beam Headlight")),
-                        //    oemPartNumber = "123=2234=33",
-                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
-                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "LED"),
-                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HID"),
-                        //    },
-                        //    oemReplacementIds = new List<LightbulbGeneric> {
-                        //        db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HALOGEN"),
-                        //    }
-                        //},
-                        //new LigthBulbCarSpecific {
-                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("High Beam Headlight")),
-                        //    oemPartNumber = "123=2234=33",
-                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
-                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "LED"),
-                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HID"),
-                        //    },
-                        //    oemReplacementIds = new List<LightbulbGeneric> {
-                        //        db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HALOGEN"),
-                        //    }
-                        //},
-                        //new LigthBulbCarSpecific {
-                        //    ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("License Plate Light")),
-                        //    oemPartNumber = "123=2234=33",
-                        //    upgradeReplacementIds = new List<LightbulbGeneric> {
-                        //        db.LightbulbGeneric.First(x => x.Size == "168" && x.FilamentType == "LED"),
-                        //    },
-                        //}
+                        new LigthBulbCarSpecific {
+                            ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("Low Beam Headlight")),
+                            oemPartNumber = "123=2234=33",
+                            LightbulbGenerics = new List<LightbulbGeneric> {
+                                db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "LED"),
+                                db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HID"),
+                                db.LightbulbGeneric.First(x => x.Size == "9006" && x.FilamentType == "HALOGEN"),
+                            }
+                        },
+                        new LigthBulbCarSpecific {
+                            ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("High Beam Headlamp Light")),
+                            oemPartNumber = "123=2234=33",
+                            LightbulbGenerics = new List<LightbulbGeneric> {
+                                db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "LED"),
+                                db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HID"),
+                                db.LightbulbGeneric.First(x => x.Size == "9005" && x.FilamentType == "HALOGEN"),
+                            }
+                        },
+                        new LigthBulbCarSpecific {
+                            ligthBulbPositionId =db.LigthBulbPosition.First(x => x.Name.Contains("License Plate Light")),
+                            oemPartNumber = "123=2234=33",
+                            LightbulbGenerics = new List<LightbulbGeneric> {
+                                db.LightbulbGeneric.First(x => x.Size == "168" && x.FilamentType == "LED"),
+                            }
+                        }
                     }
                 });
                 db.Vehicles.Add(new Vehicle

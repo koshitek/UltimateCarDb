@@ -23,14 +23,11 @@ namespace WebApplication1.Models
     {
         public LigthBulbCarSpecific()
         {
-            this.oemReplacementIds = new HashSet<LightbulbGeneric>();
-            this.upgradeReplacementIds = new HashSet<LightbulbGeneric>();
+            this.LightbulbGenerics = new HashSet<LightbulbGeneric>();
         }
-
         public int LigthBulbCarSpecificId { get; set; }
         public LigthBulbPosition ligthBulbPositionId { get; set; }
         public string oemPartNumber { get; set; }
-        public virtual ICollection<LightbulbGeneric> oemReplacementIds { get; set; }
-        public virtual ICollection<LightbulbGeneric> upgradeReplacementIds { get; set; }
+        public virtual ICollection<LightbulbGeneric> LightbulbGenerics { get; set; }
     }
 }

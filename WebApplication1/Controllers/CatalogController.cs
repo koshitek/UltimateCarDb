@@ -91,15 +91,15 @@ namespace WebApplication1.Controllers
 
             using (var db = new VehicleDBContext())
             {
-                var allLightbulbs = db.Vehicles
+                var vehicle = db.Vehicles
                      .Where(s => s.ProductionYear.Name == year)
                      .Where(s => s.Manufacturer.Name == manufacturer)
                      .Where(s => s.Model.Name == model)
                      .Where(s => s.Trim.Name == trim)
-                     .First().LigthBulbCarSpecific;
-                string output = JsonConvert.SerializeObject(allLightbulbs);
-                
-                return View();
+                     .Select(s => s.LigthBulbCarSpecific)
+                     .ToList();
+                var allLightbulbs = vehicle.ToList().FirstOrDefault();
+                return View(allLightbulbs);
             }
         }
                 

@@ -1,7 +1,7 @@
-﻿@model List<WebApplication1.Models.LigthBulb>
+﻿@model List<WebApplication1.Models.LigthBulbCarSpecific>
 
 @{
-    ViewBag.Title = "Select Ligthbulb";
+    ViewBag.Title = "All Ligthbulbs";
 }
 <p>@ViewBag.year > @ViewBag.manufacturer > @ViewBag.model > @ViewBag.trim > @ViewBag.Title</p>
 
@@ -9,7 +9,18 @@
     @foreach (var item in Model)
     {
         <p>
-            <a href="@item.AmazonLink">@item.Name</a>
+            @item.ligthBulbPositionId.Name
         </p>
+        <p>
+            @item.oemPartNumber -- replacements
+        </p>
+        foreach (var bulbitem in item.LightbulbGenerics)
+        {
+            <p>
+                @bulbitem.Size<br />
+                @bulbitem.FilamentType<br />
+                <a href="@bulbitem.AmazonLink">Buy</a><br />
+            </p>
+        }
     }
 </div>
