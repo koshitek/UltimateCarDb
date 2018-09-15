@@ -31,6 +31,6 @@ namespace WebApplication1.Models
         public string EbayLink { get; set; }
         public string AliExpressLink { get; set; }
         public string WalmartLink { get; set; }
-        public virtual ICollection<LigthBulbCarSpecific> LigthBulbCarSpecifics { get; set; }
+        public ICollection<LigthBulbCarSpecific> LigthBulbCarSpecifics { get; set; }
     }
 }

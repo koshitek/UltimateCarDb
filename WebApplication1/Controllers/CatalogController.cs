@@ -96,9 +96,9 @@ namespace WebApplication1.Controllers
                      .Where(s => s.Manufacturer.Name == manufacturer)
                      .Where(s => s.Model.Name == model)
                      .Where(s => s.Trim.Name == trim)
-                     .Select(s => s.LigthBulbCarSpecific)
-                     .ToList();
-                var allLightbulbs = vehicle.ToList().FirstOrDefault();
+                     .Select(s => new { s.Manufacturer, s.Model, s.ProductionYear });
+                var query = from c in db.Vehicles select c;
+                var allLightbulbs = new List<LigthBulbCarSpecific>();
                 return View(allLightbulbs);
             }
         }

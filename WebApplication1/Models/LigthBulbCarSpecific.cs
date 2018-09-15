@@ -28,6 +28,6 @@ namespace WebApplication1.Models
         public int LigthBulbCarSpecificId { get; set; }
         public LigthBulbPosition ligthBulbPositionId { get; set; }
         public string oemPartNumber { get; set; }
-        public virtual ICollection<LightbulbGeneric> LightbulbGenerics { get; set; }
+        public ICollection<LightbulbGeneric> LightbulbGenerics { get; set; }
     }
 }

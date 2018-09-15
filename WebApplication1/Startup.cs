@@ -24,6 +24,34 @@ namespace WebApplication1
             SeedModels();
             SeedTrims();
             SeedVehicles();
+            SampleQueryTest();
+        }
+        void SampleQueryTest()
+        {
+            //https://coding.abel.nu/2012/06/dont-use-linqs-join-navigate/
+            using (var db = new VehicleDBContext())
+            {
+                var vehicle = db.Vehicles
+                    .Where(s => s.ProductionYear.Name == "2003")
+                    .Where(s => s.Manufacturer.Name == "Ford")
+                    .Where(s => s.Model.Name == "Explorer")
+                    .Where(s => s.Trim.Name == "Eddie Bauer")
+                    .ToList()
+                    .Select(a => a.LigthBulbCarSpecific.ToList());
+                var listBulbs = new List<LigthBulbCarSpecific>();
+                var testLightfas = db.LigthBulbCarSpecific.Where(s => s.LigthBulbCarSpecificId == 1).First();
+                var testTest = db.Vehicles.Select(p=>p).ToList();
+                foreach (var item in vehicle.First())
+                {
+                    var fdsafdas = 
+                        db.LigthBulbPosition.Where(s => s.LigthBulbPositionId == item.ligthBulbPositionId.LigthBulbPositionId).First();
+                    var test = item.LightbulbGenerics.ToList();
+                }
+                //List<WebApplication1.Models.LigthBulbCarSpecific>
+
+                //var allLightulbsSpecific = db.LigthBulbCarSpecific.Where(s=>s.)
+                //var allLigthbulbsForCar = db.LightbulbGeneric.Where(s=>s.LigthBulbCarSpecifics.Contains)
+            }
         }
         void SeedProductionYears()
         {
