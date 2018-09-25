@@ -97,8 +97,45 @@ namespace WebApplication1.Controllers
                      .Where(s => s.Model.Name == model)
                      .Where(s => s.Trim.Name == trim)
                      .Select(s => new { s.Manufacturer, s.Model, s.ProductionYear });
-                var query = from c in db.Vehicles select c;
-                var allLightbulbs = new List<LigthBulbCarSpecific>();
+
+                //var vehicleTarget = from v in Vehicles
+                //where v.ProductionYear.Name == "2003"
+                //&&  v.Manufacturer.Name == "FORD"
+                //&& v.Model.Name == "Explorer"
+                //&& v.Trim.Name == "Eddie Bauer"
+                //select new { v.VehicleId };
+                //
+                //var number = vehicleTarget.First().VehicleId;
+                //	 
+                //var dfsfa=from l in LigthBulbCarSpecifics
+                //where l.Vehicle_VehicleId == number
+                //select new 
+                //{
+                //	l.LigthBulbCarSpecificId
+                //};
+                //dfsfa.ToList().Dump();
+
+                var allLightbulbs = from l in db.LigthBulbCarSpecificLightbulbGenerics
+                               where (
+                                   l.LigthBulbCarSpecific.Vehicle.ProductionYear.Name == "2003"
+                                   && l.LigthBulbCarSpecific.Vehicle.Manufacturer.Name == "FORD"
+                                   && l.LigthBulbCarSpecific.Vehicle.Model.Name == "Explorer"
+                                   && l.LigthBulbCarSpecific.Vehicle.Trim.Name == "Eddie Bauer")
+                               select new
+                               {
+                                   l.LightbulbGeneric.LightbulbGenericId,
+                                   l.LightbulbGeneric.Name,
+                                   l.LightbulbGeneric.Size,
+                                   l.LightbulbGeneric.FilamentType,
+                                   l.LightbulbGeneric.Voltage,
+                                   l.LightbulbGeneric.Wattage,
+                                   l.LightbulbGeneric.AmazonLink,
+                                   l.LightbulbGeneric.EbayLink,
+                                   l.LightbulbGeneric.AliExpressLink,
+                                   l.LightbulbGeneric.WalmartLink,
+                                   l.LigthBulbCarSpecific.OemPartNumber,
+                                   Position = l.LigthBulbCarSpecific.LigthBulbPositionId.Name,
+                               };
                 return View(allLightbulbs);
             }
         }
