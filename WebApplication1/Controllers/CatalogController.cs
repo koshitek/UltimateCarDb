@@ -115,27 +115,17 @@ namespace WebApplication1.Controllers
                 //};
                 //dfsfa.ToList().Dump();
 
-                var allLightbulbs = from l in db.LigthBulbCarSpecificLightbulbGenerics
-                               where (
-                                   l.LigthBulbCarSpecific.Vehicle.ProductionYear.Name == "2003"
-                                   && l.LigthBulbCarSpecific.Vehicle.Manufacturer.Name == "FORD"
-                                   && l.LigthBulbCarSpecific.Vehicle.Model.Name == "Explorer"
-                                   && l.LigthBulbCarSpecific.Vehicle.Trim.Name == "Eddie Bauer")
-                               select new
-                               {
-                                   l.LightbulbGeneric.LightbulbGenericId,
-                                   l.LightbulbGeneric.Name,
-                                   l.LightbulbGeneric.Size,
-                                   l.LightbulbGeneric.FilamentType,
-                                   l.LightbulbGeneric.Voltage,
-                                   l.LightbulbGeneric.Wattage,
-                                   l.LightbulbGeneric.AmazonLink,
-                                   l.LightbulbGeneric.EbayLink,
-                                   l.LightbulbGeneric.AliExpressLink,
-                                   l.LightbulbGeneric.WalmartLink,
-                                   l.LigthBulbCarSpecific.OemPartNumber,
-                                   Position = l.LigthBulbCarSpecific.LigthBulbPositionId.Name,
-                               };
+                var allLightbulbs = from l in db.Vehicles
+                                    where (
+                                        l.ProductionYear.Name == "2003"
+                                        && l.Manufacturer.Name == "FORD"
+                                        && l.Model.Name == "Explorer"
+                                        && l.Trim.Name == "Eddie Bauer")
+                                    select new
+                                    {
+                                        l.LigthBulbCarSpecific
+                                    };
+
                 return View(allLightbulbs);
             }
         }
