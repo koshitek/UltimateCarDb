@@ -84,36 +84,91 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Lightbulbs(string year, string model, string trim, string manufacturer)
         {
-            ViewBag.year = year;
-            ViewBag.manufacturer = manufacturer;
-            ViewBag.model = model;
-            ViewBag.trim= trim;
+            ViewBag.year = year; // 1999
+            ViewBag.manufacturer = manufacturer; // ACURA
+            ViewBag.model = model; // TL
+            ViewBag.trim= trim; // 3.2 V6
+
+            //Select ls.oemPartNumber, p.name, gg.* from Vehicles v
+            //inner join Manufacturers m on m.ManufacturerId = v.Manufacturer_ManufacturerId
+            //inner join Models mo on mo.ModelId = v.Model_ModelId
+            //inner join Trims t on t.TrimId = v.Trim_TrimId
+            //inner join LigthBulbCarSpecifics ls on ls.Vehicle_VehicleId = v.VehicleId
+            //inner join LigthBulbPositions p on p.LigthBulbPositionId = ls.ligthBulbPositionId_LigthBulbPositionId
+            //inner join LigthBulbCarSpecificLightbulbGenerics bb on bb.LigthBulbCarSpecific_LigthBulbCarSpecificId = ls.LigthBulbCarSpecificId
+            //inner join LightbulbGenerics gg on gg.LightbulbGenericId = ls.LigthBulbCarSpecificId
+            //where ManufacturerId = 2 and ModelId = 1 and TrimId = 1
 
             using (var db = new VehicleDBContext())
             {
-                var vehicle = db.Vehicles
+                Vehicle vehicle = db.Vehicles
+                    .Include("LigthBulbCarSpecific")
                      .Where(s => s.ProductionYear.Name == year)
                      .Where(s => s.Manufacturer.Name == manufacturer)
                      .Where(s => s.Model.Name == model)
-                     .Where(s => s.Trim.Name == trim)
-                     .Select(s => new { s.Manufacturer, s.Model, s.ProductionYear });
+                     .Where(s => s.Trim.Name == trim).FirstOrDefault();
+                List<int> searchedId = vehicle.LigthBulbCarSpecific.Select(x => x.LigthBulbCarSpecificId).ToList();
+                //var numberFound = vehicle.Count();
+                var json = JsonConvert.SerializeObject(searchedId);
 
-                //var vehicleTarget = from v in Vehicles
-                //where v.ProductionYear.Name == "2003"
-                //&&  v.Manufacturer.Name == "FORD"
-                //&& v.Model.Name == "Explorer"
-                //&& v.Trim.Name == "Eddie Bauer"
-                //select new { v.VehicleId };
-                //
-                //var number = vehicleTarget.First().VehicleId;
-                //	 
-                //var dfsfa=from l in LigthBulbCarSpecifics
-                //where l.Vehicle_VehicleId == number
-                //select new 
-                //{
-                //	l.LigthBulbCarSpecificId
-                //};
-                //dfsfa.ToList().Dump();
+                // resolving the position object.
+                var resolvingPosition = db.LigthBulbCarSpecific
+                     .Where(s => searchedId.Contains(s.LigthBulbCarSpecificId))
+                     .Select(s => new { s.ligthBulbPositionId, s.LightbulbGenerics });
+                var numberFound22 = searchedId.Count();
+                var numberFound222 = resolvingPosition.Count();
+                var json3 = JsonConvert.SerializeObject(resolvingPosition);
+
+                // resolving the position object.
+                var resolvingPosition2 = db.LigthBulbCarSpecific
+                     .Where(s => s.LigthBulbCarSpecificId == 1)
+                     .Select(s => new { s.ligthBulbPositionId });
+                var json4 = JsonConvert.SerializeObject(resolvingPosition);
+                var json5 = "sdfa";
+
+
+                //                {
+                //                    "VehicleId":1,
+                //   "ProductionYear":{
+                //                        "ProductionYearId":14,
+                //      "Name":"2003"
+                //   },
+                //   "Manufacturer":{
+                //                        "ManufacturerId":2,
+                //      "Name":"FORD"
+                //   },
+                //   "Model":{
+                //                        "ModelId":1,
+                //      "Name":"Explorer"
+                //   },
+                //   "Trim":{
+                //                        "TrimId":1,
+                //      "Name":"Eddie Bauer"
+                //   },
+                //   "LigthBulbCarSpecific":[
+                //      {  
+                //         "LigthBulbCarSpecificId":1,
+                //         "ligthBulbPositionId":null,
+                //         "oemPartNumber":"123=2234=33",
+                //         "LightbulbGenerics":[
+                //         ]
+                //    },
+                //      {  
+                //         "LigthBulbCarSpecificId":2,
+                //         "ligthBulbPositionId":null,
+                //         "oemPartNumber":"123=2234=33",
+                //         "LightbulbGenerics":[
+                //         ]
+                //},
+                //      {  
+                //         "LigthBulbCarSpecificId":3,
+                //         "ligthBulbPositionId":null,
+                //         "oemPartNumber":"123=2234=33",
+                //         "LightbulbGenerics":[
+                //         ]
+                //      }
+                //   ]
+                //}
 
                 var allLightbulbs = from l in db.Vehicles
                                     where (

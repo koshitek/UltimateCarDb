@@ -21,10 +21,6 @@ namespace WebApplication1.Models
 {
     public class LigthBulbCarSpecific
     {
-        public LigthBulbCarSpecific()
-        {
-            this.LightbulbGenerics = new HashSet<LightbulbGeneric>();
-        }
         public int LigthBulbCarSpecificId { get; set; }
         public LigthBulbPosition ligthBulbPositionId { get; set; }
         public string oemPartNumber { get; set; }
